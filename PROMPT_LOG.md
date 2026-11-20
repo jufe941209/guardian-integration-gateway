@@ -1,7 +1,7 @@
 # Prompt Log: Guardian Integration Gateway
 
 How I directed the AI (Claude) on this assignment, in order. Prompts are summarized
-where they were long. Anything marked **[Julian: complete]** is for me to fill in with what I
+where they were long. Tool used: **Claude Code** (Claude, in VS Code). Each section lists what I asked, what the AI decided and what I
 actually did or changed myself.
 
 ## Prompt 1: Context and constraints
