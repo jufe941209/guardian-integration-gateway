@@ -9,6 +9,12 @@ A small secure middleware service (Node.js + Express) that sits between a client
 3. **Writes an audit log** to a JSON file: the original message **encrypted** (AES-256-GCM) and the redacted message in **plaintext**.
 4. **Circuit breaker**: after **3 consecutive** AI failures the API returns the fallback `Service Busy` **instantly**, without calling the AI or waiting for any timeout.
 
+## Demo video
+
+[`demo/demo.mp4`](demo/demo.mp4): tests, `docker compose up --build`, a request with email + card + SSN being redacted (~2 s mock AI answer), three AI failures opening the circuit, the 4th call returning `Service Busy` in ~24 ms, and the audit log showing the original encrypted (no raw PII on disk) and the redacted text in plaintext.
+
+> Recorded on Windows where Hyper-V/WSL2 are unavailable, so Docker Engine runs in a local Ubuntu VM (VirtualBox) with port 3000 forwarded to `localhost`. Any Docker host works the same way.
+
 ## Run it
 
 ### Option A: Docker (recommended)

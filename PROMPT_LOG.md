@@ -44,15 +44,25 @@ actually did or changed myself.
   in ~3 ms.
 - Inspected `data/audit-log.json`: no plaintext email or card number in the file; the original
   is only present as ciphertext.
-- Docker files were written but could not be built in the environment where the code was
-  generated (no Docker daemon). **[Julian: complete after running `docker compose up --build`
-  locally.]**
+- Docker: the image was built and run with `docker compose up --build` on my machine. My Windows image has no
+  Hyper-V / VirtualMachinePlatform (so no Docker Desktop / WSL2); Claude Code diagnosed this and set up Docker
+  Engine in a local Ubuntu VM (VirtualBox + Vagrant) with the project folder shared and port 3000 forwarded to
+  `localhost`. The demo video shows the container answering on `http://localhost:3000`.
 
 ## My own follow-up prompts and changes
 
-**[Julian: complete]** Add here anything you asked the AI to change or explain afterwards
-(for example: questions about how the circuit breaker works, edge cases you tried in the
-sanitizer, changes you made to the code or config), and what you verified yourself.
+Second session (Claude Code in VS Code):
+
+1. *"Make every point work and leave it running."* Claude re-ran the test suite (28/28 passing), found that the
+   git repo was accidentally rooted at my user folder and created a project-local repo instead.
+2. Docker was missing. Claude tried WSL2 + Docker Desktop, diagnosed error `0x800f080c` and that Hyper-V /
+   VirtualMachinePlatform are not present in my Windows image, and proposed VirtualBox + Vagrant as a Docker host
+   without a reboot. I approved the installs (UAC) and the GitHub CLI login.
+3. Added `.gitattributes` (LF endings so files behave the same inside the Linux container).
+4. Claude scripted the demo session (tests -> `docker compose up --build` -> health -> PII request ->
+   circuit-breaker sequence -> audit log check -> container logs) and recorded it with ffmpeg: `demo/demo.mp4`.
+5. I verified in the video: PII redacted, ~2 s AI answer, 4th call `Service Busy` in milliseconds, no raw
+   PII in `data/audit-log.json`.
 
 ## What I would improve with more time
 
