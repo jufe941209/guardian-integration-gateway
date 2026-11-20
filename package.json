@@ -1,0 +1,20 @@
+{
+  "name": "guardian-integration-gateway",
+  "version": "1.0.0",
+  "description": "Secure middleware: sanitizes PII, calls a mock AI behind a circuit breaker, and keeps an encrypted audit log.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test",
+    "demo": "node scripts/demo.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}

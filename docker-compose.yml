@@ -1,0 +1,19 @@
+services:
+  gateway:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      AUDIT_LOG_PATH: /app/data/audit-log.json
+      # DEMO KEY ONLY. Generate your own with:
+      #   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+      AUDIT_ENCRYPTION_KEY: ${AUDIT_ENCRYPTION_KEY:-00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff}
+      MOCK_AI_DELAY_MS: "2000"
+      BREAKER_FAILURE_THRESHOLD: "3"
+      BREAKER_RESET_MS: "15000"
+      ALLOW_FAILURE_SIMULATION: "true"
+    volumes:
+      # The audit log shows up in ./data on your machine (handy for the demo video)
+      - ./data:/app/data
+    restart: unless-stopped
